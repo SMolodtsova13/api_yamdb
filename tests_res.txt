@@ -1,0 +1,361 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.0, pytest-6.2.4, py-1.11.0, pluggy-0.13.1 -- C:\Users\Islam\Desktop\Dev\api_yamdb\venv\Scripts\python.exe
+django: settings: api_yamdb.settings (from ini)
+rootdir: C:\Users\Islam\Desktop\Dev\api_yamdb, configfile: pytest.ini
+plugins: django-4.4.0, pythonpath-0.7.3
+collecting ... collected 7 items
+
+tests/test_02_category.py::Test02CategoryAPI::test_01_category_not_auth FAILED [ 14%]
+tests/test_02_category.py::Test02CategoryAPI::test_02_category_with_admin_user FAILED [ 28%]
+tests/test_02_category.py::Test02CategoryAPI::test_03_category_fields_validation[data0-massage0] PASSED [ 42%]
+tests/test_02_category.py::Test02CategoryAPI::test_03_category_fields_validation[data1-massage1] PASSED [ 57%]
+tests/test_02_category.py::Test02CategoryAPI::test_03_category_fields_validation[data2-massage2] PASSED [ 71%]
+tests/test_02_category.py::Test02CategoryAPI::test_04_category_delete_admin FAILED [ 85%]
+tests/test_02_category.py::Test02CategoryAPI::test_05_category_check_permission_admin FAILED [100%]
+
+================================== FAILURES ===================================
+_________________ Test02CategoryAPI.test_01_category_not_auth _________________
+
+self = <tests.test_02_category.Test02CategoryAPI object at 0x000001FB27D4B3D0>
+client = <django.test.client.Client object at 0x000001FB27F58160>
+
+    def test_01_category_not_auth(self, client):
+>       response = client.get(self.CATEGORY_URL)
+
+tests\test_02_category.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\django\test\client.py:742: in get
+    response = super().get(path, data=data, secure=secure, **extra)
+venv\lib\site-packages\django\test\client.py:396: in get
+    return self.generic('GET', path, secure=secure, **{
+venv\lib\site-packages\django\test\client.py:473: in generic
+    return self.request(**r)
+venv\lib\site-packages\django\test\client.py:719: in request
+    self.check_exception(response)
+venv\lib\site-packages\django\test\client.py:580: in check_exception
+    raise exc_value
+venv\lib\site-packages\django\core\handlers\exception.py:47: in inner
+    response = get_response(request)
+venv\lib\site-packages\django\core\handlers\base.py:181: in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+venv\lib\site-packages\django\views\decorators\csrf.py:54: in wrapped_view
+    return view_func(*args, **kwargs)
+venv\lib\site-packages\rest_framework\viewsets.py:125: in view
+    return self.dispatch(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\views.py:509: in dispatch
+    response = self.handle_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:469: in handle_exception
+    self.raise_uncaught_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:480: in raise_uncaught_exception
+    raise exc
+venv\lib\site-packages\rest_framework\views.py:506: in dispatch
+    response = handler(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\mixins.py:40: in list
+    page = self.paginate_queryset(queryset)
+venv\lib\site-packages\rest_framework\generics.py:169: in paginate_queryset
+    if self.paginator is None:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <api.views.CategoryViewSet object at 0x000001FB27FF5E40>
+
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+>               self._paginator = self.pagination_class()
+E               TypeError: 'list' object is not callable
+
+venv\lib\site-packages\rest_framework\generics.py:162: TypeError
+---------------------------- Captured stdout setup ----------------------------
+Operations to perform:
+  Synchronize unmigrated apps: messages, rest_framework, rest_framework_simplejwt, staticfiles
+  Apply all migrations: admin, auth, contenttypes, reviews, sessions, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying reviews.0001_initial... OK
+  Applying reviews.0002_auto_20240806_2155... OK
+  Applying reviews.0003_auto_20240807_2236... OK
+  Applying sessions.0001_initial... OK
+  Applying users.0002_auto_20240807_1638... OK
+  Applying users.0003_auto_20240807_1646... OK
+---------------------------- Captured stderr setup ----------------------------
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+------------------------------ Captured log call ------------------------------
+ERROR    django.request:log.py:224 Internal Server Error: /api/v1/categories/
+Traceback (most recent call last):
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\generics.py", line 169, in paginate_queryset
+    if self.paginator is None:
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\generics.py", line 162, in paginator
+    self._paginator = self.pagination_class()
+TypeError: 'list' object is not callable
+_____________ Test02CategoryAPI.test_02_category_with_admin_user ______________
+
+self = <tests.test_02_category.Test02CategoryAPI object at 0x000001FB28374490>
+admin_client = <rest_framework.test.APIClient object at 0x000001FB28370CD0>
+
+    def test_02_category_with_admin_user(self, admin_client):
+        categories_count = 0
+    
+        data = {}
+        response = admin_client.post(self.CATEGORY_URL, data=data)
+        assert response.status_code == HTTPStatus.BAD_REQUEST, (
+            'Если POST-запрос администратора, отправленный к '
+            f'`{self.CATEGORY_URL}`, содержит некорректные данные - должен '
+            'вернуться ответ со статусом 400.'
+        )
+    
+        data = {
+            'name': 'Фильм',
+            'slug': 'films'
+        }
+        response = admin_client.post(self.CATEGORY_URL, data=data)
+        assert response.status_code == HTTPStatus.CREATED, (
+            'Если POST-запрос администратора, отправленный к '
+            f'`{self.CATEGORY_URL}`, содержит корректные данные - должен '
+            'вернуться ответ со статусом 201.'
+        )
+        categories_count += 1
+    
+        data = {
+            'name': 'Новые фильмы',
+            'slug': 'films'
+        }
+        response = admin_client.post(self.CATEGORY_URL, data=data)
+        assert response.status_code == HTTPStatus.BAD_REQUEST, (
+            f'Если в POST-запросе администратора к `{self.CATEGORY_URL}` '
+            'передан уже существующий `slug` - должен вернуться ответ со '
+            'статусом 400.'
+        )
+    
+        post_data = {
+            'name': 'Книги',
+            'slug': 'books'
+        }
+        response = admin_client.post(self.CATEGORY_URL, data=post_data)
+        assert response.status_code == HTTPStatus.CREATED, (
+            f'Если POST-запрос администратора к `{self.CATEGORY_URL}` '
+            'содержит корректные данные - должен вернуться ответ со статусом '
+            '201.'
+        )
+        categories_count += 1
+    
+>       response = admin_client.get(self.CATEGORY_URL)
+
+tests\test_02_category.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\rest_framework\test.py:288: in get
+    response = super().get(path, data=data, **extra)
+venv\lib\site-packages\rest_framework\test.py:205: in get
+    return self.generic('GET', path, **r)
+venv\lib\site-packages\rest_framework\test.py:233: in generic
+    return super().generic(
+venv\lib\site-packages\django\test\client.py:473: in generic
+    return self.request(**r)
+venv\lib\site-packages\rest_framework\test.py:285: in request
+    return super().request(**kwargs)
+venv\lib\site-packages\rest_framework\test.py:237: in request
+    request = super().request(**kwargs)
+venv\lib\site-packages\django\test\client.py:719: in request
+    self.check_exception(response)
+venv\lib\site-packages\django\test\client.py:580: in check_exception
+    raise exc_value
+venv\lib\site-packages\django\core\handlers\exception.py:47: in inner
+    response = get_response(request)
+venv\lib\site-packages\django\core\handlers\base.py:181: in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+venv\lib\site-packages\django\views\decorators\csrf.py:54: in wrapped_view
+    return view_func(*args, **kwargs)
+venv\lib\site-packages\rest_framework\viewsets.py:125: in view
+    return self.dispatch(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\views.py:509: in dispatch
+    response = self.handle_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:469: in handle_exception
+    self.raise_uncaught_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:480: in raise_uncaught_exception
+    raise exc
+venv\lib\site-packages\rest_framework\views.py:506: in dispatch
+    response = handler(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\mixins.py:40: in list
+    page = self.paginate_queryset(queryset)
+venv\lib\site-packages\rest_framework\generics.py:169: in paginate_queryset
+    if self.paginator is None:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <api.views.CategoryViewSet object at 0x000001FB2839F2B0>
+
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+>               self._paginator = self.pagination_class()
+E               TypeError: 'list' object is not callable
+
+venv\lib\site-packages\rest_framework\generics.py:162: TypeError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:224 Bad Request: /api/v1/categories/
+WARNING  django.request:log.py:224 Bad Request: /api/v1/categories/
+ERROR    django.request:log.py:224 Internal Server Error: /api/v1/categories/
+Traceback (most recent call last):
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\generics.py", line 169, in paginate_queryset
+    if self.paginator is None:
+  File "C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\rest_framework\generics.py", line 162, in paginator
+    self._paginator = self.pagination_class()
+TypeError: 'list' object is not callable
+_______________ Test02CategoryAPI.test_04_category_delete_admin _______________
+
+self = <tests.test_02_category.Test02CategoryAPI object at 0x000001FB295DC760>
+admin_client = <rest_framework.test.APIClient object at 0x000001FB295DCA60>
+
+    def test_04_category_delete_admin(self, admin_client):
+        category_1, category_2 = create_categories(admin_client)
+        response = admin_client.delete(
+            self.CATEGORY_SLUG_TEMPLATE_URL.format(
+                slug=category_1['slug']
+            )
+        )
+>       assert response.status_code == HTTPStatus.NO_CONTENT, (
+            'Проверьте, что DELETE-запрос администратора к '
+            f'`{self.CATEGORY_SLUG_TEMPLATE_URL}` возвращает ответ со '
+            'статусом 204.'
+        )
+E       AssertionError: Проверьте, что DELETE-запрос администратора к `/api/v1/categories/{slug}/` возвращает ответ со статусом 204.
+E       assert 404 == <HTTPStatus.NO_CONTENT: 204>
+E         +404
+E         -<HTTPStatus.NO_CONTENT: 204>
+
+tests\test_02_category.py:106: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:224 Not Found: /api/v1/categories/films/
+__________ Test02CategoryAPI.test_05_category_check_permission_admin __________
+
+self = <tests.test_02_category.Test02CategoryAPI object at 0x000001FB283A3A30>
+client = <django.test.client.Client object at 0x000001FB2839F6A0>
+user_client = <rest_framework.test.APIClient object at 0x000001FB2839DC00>
+moderator_client = <rest_framework.test.APIClient object at 0x000001FB2839DF00>
+admin_client = <rest_framework.test.APIClient object at 0x000001FB2839D750>
+
+    def test_05_category_check_permission_admin(self, client,
+                                                user_client,
+                                                moderator_client,
+                                                admin_client):
+        categories = create_categories(admin_client)
+        data = {
+            'name': 'Музыка',
+            'slug': 'music'
+        }
+        check_permissions(client, self.CATEGORY_URL, data,
+                          'неавторизованного пользователя',
+                          categories, HTTPStatus.UNAUTHORIZED)
+>       check_permissions(user_client, self.CATEGORY_URL, data,
+                          'пользователя с ролью `user`', categories,
+                          HTTPStatus.FORBIDDEN)
+
+tests\test_02_category.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+client = <rest_framework.test.APIClient object at 0x000001FB2839DC00>
+url = '/api/v1/categories/', data = {'name': 'Музыка', 'slug': 'music'}
+user_role = 'пользователя с ролью `user`'
+objects = [{'name': 'Фильм', 'slug': 'films'}, {'name': 'Книги', 'slug': 'books'}]
+expected_status = <HTTPStatus.FORBIDDEN: 403>
+
+    def check_permissions(client, url, data, user_role, objects,
+                          expected_status):
+        sufix = 'slug' if 'slug' in objects[0] else 'id'
+    
+        response = client.post(url, data=data)
+>       assert response.status_code == expected_status, (
+            f'Проверьте, что POST-запрос {user_role} к `{url}` возвращает ответ '
+            f'со статусом {expected_status}.'
+        )
+E       AssertionError: Проверьте, что POST-запрос пользователя с ролью `user` к `/api/v1/categories/` возвращает ответ со статусом 403.
+
+tests\utils.py:137: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:224 Unauthorized: /api/v1/categories/
+WARNING  django.request:log.py:224 Unauthorized: /api/v1/categories/films/
+WARNING  django.request:log.py:224 Unauthorized: /api/v1/categories/films/
+-------------------------- Captured stderr teardown ---------------------------
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+============================== warnings summary ===============================
+venv\lib\site-packages\django\utils\version.py:6
+  C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\utils\version.py:6: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+    from distutils.version import LooseVersion
+
+tests/test_02_category.py: 2148 warnings
+  C:\Users\Islam\Desktop\Dev\api_yamdb\venv\lib\site-packages\django\utils\asyncio.py:19: DeprecationWarning: There is no current event loop
+    event_loop = asyncio.get_event_loop()
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_02_category.py::Test02CategoryAPI::test_01_category_not_auth
+FAILED tests/test_02_category.py::Test02CategoryAPI::test_02_category_with_admin_user
+FAILED tests/test_02_category.py::Test02CategoryAPI::test_04_category_delete_admin
+FAILED tests/test_02_category.py::Test02CategoryAPI::test_05_category_check_permission_admin
+================= 4 failed, 3 passed, 2149 warnings in 1.82s ==================
